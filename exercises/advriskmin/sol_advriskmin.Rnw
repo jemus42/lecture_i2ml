@@ -1,6 +1,6 @@
 % !Rnw weave = knitr
 
-<<setup-child, include = FALSE, echo=FALSE>>=
+<<setup-child, include = FALSE>>=
 library('knitr')
 knitr::set_parent("../../style/preamble_ueb.Rnw")
 @
@@ -8,9 +8,9 @@ knitr::set_parent("../../style/preamble_ueb.Rnw")
 \input{../../latex-math/basic-math.tex}
 \input{../../latex-math/basic-ml.tex}
 
-\kopf{1}
+\kopfsl{1}
 
-\aufgabe{Car Price Prediction}{
-<<child="ex_rnw/ex_ml_proj.Rnw">>=
+\loesung{
+<<child="ex_rnw/sol_linear_model_optim.Rnw">>=
 @
 }

@@ -7,9 +7,16 @@ knitr::set_parent("../../style/preamble_ueb.Rnw")
 \input{../../latex-math/basic-math.tex}
 \input{../../latex-math/basic-ml.tex}
 
-\kopf{1}
+\kopfsl{3}
 
 \loesung{
-<<child="ex_rnw/sol_ml_proj.Rnw">>=
-@
+	<<child="ex_rnw/sol_some_information.Rnw">>=
+	@
+}
+
+\dlz
+
+\loesung{
+	<<child="ex_rnw/sol_kld_binom_normal.Rnw">>=
+	@
 }
