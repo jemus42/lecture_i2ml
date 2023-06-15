@@ -1,0 +1,17 @@
+name: Linter
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: LaTeX linter
+      # You may pin to the exact commit or the version.
+      # uses: colinaaa/chktex-action@5dda098b973d69cdc61ace93fa7bfcef39efaade
+      uses: colinaaa/chktex-action@v1.1.2
