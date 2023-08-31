@@ -14,12 +14,16 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          # 0 indicates all history for all branches and tags, 1 is shallow (and default)
+          fetch-depth: 1
+          
       # Uncomment / move to get a tmux ssh session for interactive debugging
-      #- name: Setup tmate session
+      # - name: Setup tmate session
       #  uses: mxschmitt/action-tmate@v3
 
-      # PWD is same name as repo, e.g. "lecture_i2ml", confusing this contains the service repo and the lecture repo
-      # is a child directory. Anwyway, basename ${PWD} is "lecture_XYZ" which is useful for us.
       - name: Get latex-math
         run: |
           curl -sL https://api.github.com/repos/slds-lmu/latex-math/tarball/master | tar -xz --directory=latex-math/ --strip-components=1
