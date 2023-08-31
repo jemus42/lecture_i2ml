@@ -6,7 +6,7 @@ on:
   push:
     branches: [main, master]
 
-name: render-lecture-slide-status
+name: update-latex-math
 
 jobs:
   update-latex-math:
