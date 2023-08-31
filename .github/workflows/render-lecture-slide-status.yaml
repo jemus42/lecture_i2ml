@@ -25,6 +25,7 @@ jobs:
         with:
           fetch-depth: 1
 
+      # We need lecture repo to be a child of lecture_service
       - name: Checkout service repo one directory level above
         run: |
           cd ..
@@ -64,12 +65,13 @@ jobs:
           make install-r
           make install-tex
           make install-tools-ubuntu
+          make install
 
       # Run the main thing: compiles slides, checks against slides-pdf/*, renderes Rmd -> html site with results
       # Resulting output is in ./_site
       - name: Check slides and build HTML overview
         working-directory: ".."
-        run: "pwd; make"
+        run: make
 
       # Deploy using this rather than JamesIves/github-pages-deploy-action, as this supports pushing
       # orphan branches. Since we're adding a bunch of PDFs, we really want to avoid a bloated branch history
@@ -77,5 +79,6 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
+          # Note that PWD is still lecture repo, site has been built in parent dir
+          publish_dir: ../_site
           force_orphan: true
