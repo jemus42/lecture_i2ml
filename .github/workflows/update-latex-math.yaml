@@ -41,8 +41,8 @@ jobs:
           fetch-depth: 1
 
       # Uncomment / move to get a tmux ssh session for interactive debugging
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+      #- name: Setup tmate session
+      #  uses: mxschmitt/action-tmate@v3
 
       # PWD is same name as repo, e.g. "lecture_i2ml", confusing this contains the service repo and the lecture repo
       # is a child directory. Anwyway, basename ${PWD} is "lecture_XYZ" which is useful for us.
