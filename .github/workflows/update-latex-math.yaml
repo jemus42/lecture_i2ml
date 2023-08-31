@@ -14,8 +14,7 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      # Clone lecture checker repo in the current directory
-      # We need lecture repo to be a sub directory of this for reasons (can optimize this once stable + working)
+      # Clone lecture service repo in the current directory
       - name: Checkout lecture service repo
         uses: actions/checkout@v3
         with:
@@ -42,5 +41,5 @@ jobs:
           fetch-depth: 1
 
       # Uncomment / move to get a tmux ssh session for interactive debugging
-       - name: Setup tmate session
-         uses: mxschmitt/action-tmate@v3
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
