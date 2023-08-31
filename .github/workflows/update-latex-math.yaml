@@ -43,3 +43,17 @@ jobs:
       # Uncomment / move to get a tmux ssh session for interactive debugging
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
+
+      # PWD is same name as repo, e.g. "lecture_i2ml", confusing this contains the service repo and the lecture repo
+      # is a child directory. Anwyway, basename ${PWD} is "lecture_XYZ" which is useful for us.
+      - name: Get latex-math
+        run: |
+          scripts/getrepo.sh latex-math $(basename ${PWD})/latex-math/
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          title: "[Automated] Update latex-math"
+          commit-message: "Update latex-math"
+          branch: latex-math
+          add-paths: lecture_*/latex-math
