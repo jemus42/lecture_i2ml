@@ -14,32 +14,6 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      # Clone lecture service repo in the current directory
-      - name: Checkout lecture service repo
-        uses: actions/checkout@v3
-        with:
-          repository: slds-lmu/lecture_service
-          fetch-depth: 1
-
-      # Most reliable way I've found to get the repo name and use it as a parameter for the checkout action
-      # see https://stackoverflow.com/a/75513916/409362
-      # If the repo is named slds-lmu/lecture_i2ml, we only need the "lecture_i2ml" part.
-      - name: Save repository name to env var (without org)
-        id: repo-basename
-        run: |
-          echo "value=$(basename ${{ github.repository }})" >> $GITHUB_OUTPUT
-        shell: bash
-
-      - name: Checkout this lecture repo
-        uses: actions/checkout@v3
-        with:
-          # Clone lecture repo in subdirectory of the same name
-          path: ${{ steps.repo-basename.outputs.value }}
-          # translates to e.g.: path: "lecture_i2ml"
-          # No need for git history
-          # 0 indicates all history for all branches and tags, 1 is shallow (and default)
-          fetch-depth: 1
-
       # Uncomment / move to get a tmux ssh session for interactive debugging
       #- name: Setup tmate session
       #  uses: mxschmitt/action-tmate@v3
@@ -48,12 +22,12 @@ jobs:
       # is a child directory. Anwyway, basename ${PWD} is "lecture_XYZ" which is useful for us.
       - name: Get latex-math
         run: |
-          scripts/getrepo.sh latex-math $(basename ${PWD})/latex-math/
+          curl -sL https://api.github.com/repos/slds-lmu/latex-math/tarball/master | tar -xz --directory=latex-math/ --strip-components=1
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
           title: "[Automated] Update latex-math"
           commit-message: "Update latex-math"
-          branch: latex-math
-          add-paths: lecture_*/latex-math
+          branch: update-latex-math
+          add-paths: latex-math
