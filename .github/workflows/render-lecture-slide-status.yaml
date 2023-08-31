@@ -58,7 +58,9 @@ jobs:
 
       # Setting up the lecture checking requirements:
       - name: Install R, LaTeX packages and PDF tools
+        working-directory: ".."
         run: |
+          pwd
           make install-r
           make install-tex
           make install-tools-ubuntu
@@ -66,8 +68,8 @@ jobs:
       # Run the main thing: compiles slides, checks against slides-pdf/*, renderes Rmd -> html site with results
       # Resulting output is in ./_site
       - name: Check slides and build HTML overview
-        run: "pwd; make"
         working-directory: ".."
+        run: "pwd; make"
 
       # Deploy using this rather than JamesIves/github-pages-deploy-action, as this supports pushing
       # orphan branches. Since we're adding a bunch of PDFs, we really want to avoid a bloated branch history
